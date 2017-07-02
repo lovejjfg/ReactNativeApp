@@ -13,7 +13,8 @@ import {
   Button,
   Alert,
   View,
-  DrawerLayoutAndroid
+  DrawerLayoutAndroid,
+  ToolbarAndroid
 } from 'react-native';
 
 
@@ -24,31 +25,52 @@ export default class ReactNativeApp extends Component {
               <Text style={{margin: 10, fontSize: 15, textAlign: 'left'}}>I'm in the Drawer!</Text>
             </View>
           );
-    return (
-      <DrawerLayoutAndroid
-            drawerWidth={300}
-            drawerPosition={DrawerLayoutAndroid.positions.Left}
-            renderNavigationView={() => navigationView}>
-                <View style={styles.container}>
-                  <Text style={styles.welcome}>
-                    Welcome to React Native!
-                  </Text>
-                  <Text style={styles.instructions}>
-                    To get started, edit index.android.js
-                  </Text>
-                  <Text style={styles.instructions}>
-                    Double tap R on your keyboard to reload,{'\n'}
-                    Shake or press menu button for dev menu
-                  </Text>
-                 <Button
-                   onPress={onPressLearnMore}
-                   title="Learn More"
-                   color="#841584"
-                   accessibilityLabel="Learn more about this purple button"
-                 />
-                </View>
-       </DrawerLayoutAndroid>
+
+        return (
+          <DrawerLayoutAndroid
+                drawerWidth={300}
+                drawerPosition={DrawerLayoutAndroid.positions.Left}
+                renderNavigationView={() => navigationView}>
+                  <ToolbarAndroid
+                     actions={toolbarActions}
+                     style={styles.toolbar}
+                     subtitle="副标题"
+                     onActionSelected={onActionSelected}
+                     title="主标题"
+                     />
+                    <View style={styles.container}>
+                      <Text style={styles.welcome}
+                      >
+                        Welcome to React Native!
+                      </Text>
+                      <Text style={styles.instructions}>
+                        To get started, edit index.android.js
+                      </Text>
+                      <Text style={styles.instructions}>
+                        Double tap R on your keyboard to reload,{'\n'}
+                        Shake or press menu button for dev menu
+                      </Text>
+                     <Button
+                       onPress={onPressLearnMore}
+                       title="Learn More"
+                       color="#841584"
+                       accessibilityLabel="Learn more about this purple button"
+                     />
+                    </View>
+
+           </DrawerLayoutAndroid>
+
     );
+  }
+};
+
+
+var toolbarActions =[
+  {title: 'Settings', icon:require('./ic_launcher.png'), show: 'always'}
+];
+function onActionSelected(position) {
+  if (position === 0) { // index of 'Settings'
+
   }
 }
 
@@ -61,6 +83,10 @@ ToastAndroidTest.show('Awesome', ToastAndroidTest.SHORT);
 
 
 const styles = StyleSheet.create({
+  toolbar: {
+    backgroundColor: '#e9eaed',
+    height: 56,
+  },
   container: {
     flex: 1,
     justifyContent: 'center',
